@@ -1,0 +1,274 @@
+<!--
+=================================================================
+MAP SECTION FINAL — Hanya Adventure
+Langsung bisa dipakai, tidak perlu ganti apapun!
+=================================================================
+-->
+
+<!-- CSS — Tambahkan ke dalam <style> yang sudah ada -->
+<style>
+.map-section {
+  padding: 5rem 6vw;
+  background: #1a2e1a;
+  color: white;
+}
+.map-section-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7CB518;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+.map-section-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+.map-section-title span { color: #F4A000; }
+.map-section-sub {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+  line-height: 1.7;
+}
+.map-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 2rem;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .map-layout { grid-template-columns: 1fr; }
+  .map-layout .map-iframe-box { order: -1; }
+}
+.info-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-left: 3px solid #7CB518;
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1rem;
+  transition: background 0.3s;
+}
+.info-card:hover { background: rgba(255,255,255,0.1); }
+.info-card-icon { font-size: 1.2rem; margin-bottom: 0.3rem; }
+.info-card h4 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #F4A000;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+.info-card p {
+  font-size: 0.87rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+}
+.info-card a {
+  color: #7CB518;
+  text-decoration: none;
+  font-weight: 600;
+}
+.info-card a:hover { color: #F4A000; }
+.route-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+.route-tag {
+  background: rgba(124,181,24,0.15);
+  border: 1px solid rgba(124,181,24,0.3);
+  color: #7CB518;
+  font-size: 0.73rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  font-weight: 600;
+}
+.map-iframe-box {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.map-iframe-box iframe {
+  width: 100%;
+  height: 420px;
+  border: none;
+  display: block;
+}
+.open-maps-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #7CB518;
+  color: white;
+  padding: 1rem;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.open-maps-link:hover { background: #F4A000; }
+
+/* WhatsApp Floating Button */
+.wa-float-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #25D366;
+  color: white;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+  z-index: 9999;
+  animation: wa-pulse 2.5s infinite;
+  transition: transform 0.3s;
+}
+.wa-float-btn:hover { transform: scale(1.1); }
+@keyframes wa-pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
+  50% { box-shadow: 0 4px 40px rgba(37,211,102,0.9); }
+}
+</style>
+
+
+<!-- ============================================================
+     MAP SECTION HTML
+     Gantikan section #location / Find Us yang lama dengan ini
+     ============================================================ -->
+<section class="map-section" id="location">
+
+  <p class="map-section-label">📍 Find Us · Temukan Kami</p>
+  <h2 class="map-section-title">MUDAH DIJANGKAU,<br><span>SULIT DILUPAKAN</span></h2>
+  <p class="map-section-sub">
+    Di jantung dataran tinggi Puncak Cisarua — hanya 60 menit dari Jakarta, 
+    90 menit dari Bandung, dan dekat Bandara Soekarno-Hatta.
+  </p>
+
+  <div class="map-layout">
+
+    <!-- INFO KIRI -->
+    <div>
+
+      <div class="info-card">
+        <div class="info-card-icon">📍</div>
+        <h4>Alamat · Address</h4>
+        <p>
+          Jl. Pra Asia Afrika, Tugu Selatan<br>
+          Kec. Cisarua, Puncak, Bogor<br>
+          Jawa Barat 16750, Indonesia
+        </p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-icon">🚗</div>
+        <h4>Rute · How to Get Here</h4>
+        <div class="route-tags">
+          <span class="route-tag">🚗 Jakarta ~60 menit</span>
+          <span class="route-tag">🚗 Bandung ~90 menit</span>
+          <span class="route-tag">✈️ Soetta ~90 menit</span>
+          <span class="route-tag">🛣️ Tol Jagorawi</span>
+          <span class="route-tag">📍 Exit Gadog/Ciawi</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-icon">🕐</div>
+        <h4>Jam Operasional · Hours</h4>
+        <p>Senin – Minggu · Mon – Sun<br><strong style="color:#7CB518;">07:00 – 17:00 WIB</strong></p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-icon">📞</div>
+        <h4>Hubungi Kami · Contact</h4>
+        <p>
+          <a href="https://wa.me/6287874010019">💬 +62 878-7401-0019</a><br>
+          <a href="mailto:kalangadventure@gmail.com">✉️ kalangadventure@gmail.com</a>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- MAP KANAN -->
+    <div class="map-iframe-box">
+
+      <!--
+      Google Maps Embed menggunakan nama lokasi langsung.
+      Ini langsung bekerja tanpa perlu API key atau URL khusus.
+      Jika ingin pakai URL spesifik dari link Anda, ganti src di bawah
+      dengan URL embed dari Google Maps → Share → Embed a map
+      -->
+      <iframe
+        src="https://maps.google.com/maps?q=Jl.+Pra+Asia+Afrika+Tugu+Selatan+Cisarua+Puncak+Bogor&output=embed&hl=id&z=16"
+        width="100%"
+        height="420"
+        style="border:0; display:block;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Hanya Adventure Puncak Bogor - Lokasi di Google Maps">
+      </iframe>
+
+      <a
+        href="https://maps.app.goo.gl/2oRWgGtXGeoWJFGn9"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="open-maps-link">
+        🗺️ Buka di Google Maps · Open in Google Maps →
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     WHATSAPP FLOATING BUTTON
+     Taruh tepat sebelum </body>
+     Tombol ini akan muncul di seluruh halaman
+     ============================================================ -->
+<a
+  href="https://wa.me/6287874010019?text=Halo%20Hanya%20Adventure!%20Saya%20ingin%20info%20paket%20wisata%20petualangan%20di%20Puncak%20Bogor"
+  class="wa-float-btn"
+  target="_blank"
+  rel="noopener noreferrer"
+  title="Chat WhatsApp Hanya Adventure">
+  💬
+</a>
+
+
+<!--
+=================================================================
+CARA PAKAI:
+
+1. Buka file index.html di GitHub
+2. Cari section #location / Find Us yang lama → hapus
+3. Paste seluruh kode HTML di atas sebagai penggantinya
+4. Tambahkan CSS ke dalam <style> yang sudah ada
+5. Paste WA floating button sebelum </body>
+6. Save & commit ke GitHub
+
+HASIL:
+✅ Peta Google Maps langsung muncul (lokasi Puncak Cisarua)
+✅ Tombol "Buka di Google Maps" pakai link spesifik Anda
+✅ Info lokasi, jam, kontak lengkap
+✅ Rute dari Jakarta, Bandung, Soetta
+✅ Tombol WA mengambang di semua halaman
+✅ Mobile-friendly, desain premium
+=================================================================
+-->

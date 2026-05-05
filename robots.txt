@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-
-# Sitemap location — GANTI YOUR-USERNAME
-Sitemap: https://YOUR-USERNAME.github.io/hanya-adventure/sitemap.xml
-
-# Block unnecessary files
-Disallow: /drafts/
-Disallow: /private/

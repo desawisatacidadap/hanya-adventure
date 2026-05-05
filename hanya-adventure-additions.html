@@ -1,0 +1,524 @@
+<!--
+=================================================================
+PANDUAN UPDATE HANYA ADVENTURE — GitHub Pages
+=================================================================
+Tambahkan kode berikut ke file index.html di repository GitHub
+Anda. Setiap bagian diberi label jelas untuk memudahkan.
+=================================================================
+-->
+
+
+<!-- ============================================================
+     BAGIAN 1: SCHEMA.ORG — Taruh di dalam <head> ... </head>
+     Hapus meta-keywords yang lama, ganti dengan ini semua
+     ============================================================ -->
+<head>
+
+<!-- Schema.org: LocalBusiness + TouristAttraction -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["LocalBusiness", "TouristAttraction", "SportsActivityLocation"],
+      "@id": "https://desawisatacidadap.github.io/hanya-adventure/#business",
+      "name": "Hanya Adventure Puncak",
+      "alternateName": ["Kalang Adventure", "Hanya Adventure Bogor"],
+      "description": "Professional adventure tourism and corporate outbound provider in Puncak Bogor, West Java Indonesia. Offering ATV off-road, white water rafting, jeep safari, paintball, and team building since 2012.",
+      "url": "https://desawisatacidadap.github.io/hanya-adventure/",
+      "telephone": "+6287874010019",
+      "email": "kalangadventure@gmail.com",
+      "foundingDate": "2012",
+      "priceRange": "Rp 175.000 – Rp 350.000",
+      "currenciesAccepted": "IDR",
+      "paymentAccepted": "Cash, Bank Transfer",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Jl. Pra Asia Afrika, Tugu Selatan",
+        "addressLocality": "Cisarua",
+        "addressRegion": "Jawa Barat",
+        "postalCode": "16750",
+        "addressCountry": "ID"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -6.706,
+        "longitude": 107.016
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          "opens": "07:00",
+          "closes": "17:00"
+        }
+      ],
+      "image": [
+        "https://kalangadventure.com/wp-content/uploads/2025/02/WhatsApp-Image-2025-01-27-at-9.21.22-AM.jpeg",
+        "https://kalangadventure.com/wp-content/uploads/2024/08/DNS00587-scaled.jpg",
+        "https://kalangadventure.com/wp-content/uploads/2024/07/IMG_9936-scaled.jpg"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "87",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "sameAs": [
+        "https://www.instagram.com/outbound_gathering_puncakbogor",
+        "https://www.tiktok.com/@kalangadventure",
+        "https://kalangadventure.com"
+      ],
+      "hasMap": "https://maps.google.com/?q=Jl.+Pra+Asia+Afrika+Tugu+Selatan+Cisarua+Bogor",
+      "touristType": [
+        "Adventure tourists",
+        "Corporate groups",
+        "Family travelers",
+        "International tourists"
+      ],
+      "amenityFeature": [
+        {"@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "English Speaking Staff", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Safety Equipment Provided", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Certified Guides", "value": true}
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://desawisatacidadap.github.io/hanya-adventure/#atv",
+      "name": "ATV Off-Road Desa Batulayang",
+      "description": "Thrilling ATV off-road experience on 5.5 km muddy jungle trails through Desa Batulayang, Puncak Bogor. Suitable for all skill levels.",
+      "provider": {"@id": "https://desawisatacidadap.github.io/hanya-adventure/#business"},
+      "areaServed": {"@type": "Place", "name": "Puncak, Bogor, West Java, Indonesia"},
+      "offers": {
+        "@type": "Offer",
+        "price": "350000",
+        "priceCurrency": "IDR",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "350000",
+          "priceCurrency": "IDR",
+          "unitText": "per person"
+        },
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2025-01-01"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://desawisatacidadap.github.io/hanya-adventure/#rafting",
+      "name": "White Water Rafting Puncak Bogor",
+      "description": "Exciting white water rafting on natural rivers in the Puncak highlands. Grade II-III rapids through tropical forest.",
+      "provider": {"@id": "https://desawisatacidadap.github.io/hanya-adventure/#business"},
+      "offers": {
+        "@type": "Offer",
+        "price": "175000",
+        "priceCurrency": "IDR",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "175000",
+          "priceCurrency": "IDR",
+          "unitText": "per person"
+        },
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://desawisatacidadap.github.io/hanya-adventure/#jeep",
+      "name": "Jeep Offroad Safari Puncak",
+      "description": "4x4 Jeep off-road safari through spectacular Puncak highland terrain. Capacity up to 7 passengers per vehicle.",
+      "provider": {"@id": "https://desawisatacidadap.github.io/hanya-adventure/#business"},
+      "offers": {
+        "@type": "Offer",
+        "price": "325000",
+        "priceCurrency": "IDR",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "325000",
+          "priceCurrency": "IDR",
+          "unitText": "per person"
+        },
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://desawisatacidadap.github.io/hanya-adventure/#paintball",
+      "name": "Paintball Arena Puncak Bogor",
+      "description": "Tactical outdoor paintball in natural arena. Multiple game modes available. Perfect for corporate events and group activities.",
+      "provider": {"@id": "https://desawisatacidadap.github.io/hanya-adventure/#business"},
+      "offers": {
+        "@type": "Offer",
+        "price": "175000",
+        "priceCurrency": "IDR",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "175000",
+          "priceCurrency": "IDR",
+          "unitText": "per person"
+        },
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How far is Hanya Adventure from Jakarta?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hanya Adventure Puncak is approximately 60-90 minutes from Jakarta via Jagorawi Toll Road, exit Gadog or Ciawi. Located in Puncak Cisarua, Bogor, West Java."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the price for ATV in Puncak Bogor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ATV off-road at Hanya Adventure Puncak starts from Rp 350.000 per person. The trail covers 5.5 km through Desa Batulayang with certified safety guides included."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the price for white water rafting in Puncak?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "White water rafting at Hanya Adventure Puncak starts from Rp 175.000 per person. All safety equipment including life jacket, helmet, and paddle are provided."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Hanya Adventure suitable for international tourists?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Hanya Adventure welcomes international tourists. Our English-speaking staff provides full support. We serve guests from Singapore, Malaysia, Australia, Japan, Europe and beyond."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Berapa harga ATV di Puncak Bogor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Harga ATV di Hanya Adventure Puncak mulai dari Rp 350.000 per orang. Sudah termasuk pemandu profesional bersertifikat dan peralatan keselamatan lengkap."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Berapa harga rafting di Puncak Bogor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Harga arung jeram di Hanya Adventure Puncak mulai dari Rp 175.000 per orang. Termasuk pelampung, helm, dan dayung. Dipandu oleh instruktur bersertifikat."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://desawisatacidadap.github.io/hanya-adventure/"},
+        {"@type": "ListItem", "position": 2, "name": "ATV Puncak Bogor", "item": "https://desawisatacidadap.github.io/hanya-adventure/#atv"},
+        {"@type": "ListItem", "position": 3, "name": "Rafting Puncak", "item": "https://desawisatacidadap.github.io/hanya-adventure/#rafting"},
+        {"@type": "ListItem", "position": 4, "name": "Corporate Outbound", "item": "https://desawisatacidadap.github.io/hanya-adventure/#packages"}
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- Meta tambahan untuk percepat indexing internasional -->
+<meta name="geo.region" content="ID-JB">
+<meta name="geo.placename" content="Puncak, Bogor, West Java, Indonesia">
+<meta name="geo.position" content="-6.706;107.016">
+<meta name="ICBM" content="-6.706, 107.016">
+<meta name="language" content="en, id">
+<meta name="revisit-after" content="7 days">
+<meta name="rating" content="general">
+
+<!-- Preconnect untuk percepat loading foto -->
+<link rel="preconnect" href="https://kalangadventure.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://kalangadventure.com">
+
+</head>
+
+
+<!-- ============================================================
+     BAGIAN 2: HARGA — Ganti teks paket yang lama dengan ini
+     Copy bagian harga ke section packages yang sudah ada
+     ============================================================ -->
+
+<!-- HARGA SECTION (tambahkan di bawah judul setiap paket) -->
+<style>
+/* Tambahkan CSS ini ke style yang sudah ada */
+.price-tag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 12px 0 16px;
+}
+.price-from {
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.price-amount {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1a2e1a;
+  line-height: 1;
+}
+.price-unit {
+  font-size: 0.8rem;
+  color: #888;
+}
+.price-tag.featured .price-amount { color: #7CB518; }
+
+/* Price grid untuk tampilkan semua harga */
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  background: #f5f0eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+.price-item {
+  text-align: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 6px;
+  border-top: 3px solid #7CB518;
+}
+.price-item h4 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+.price-item .big-price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1a2e1a;
+  line-height: 1;
+}
+.price-item .sub {
+  font-size: 0.7rem;
+  color: #999;
+  margin-top: 0.2rem;
+}
+.price-item.highlight { border-top-color: #F4A000; }
+.price-item.highlight .big-price { color: #F4A000; }
+</style>
+
+<!-- PRICE QUICK VIEW — Taruh di atas atau bawah section packages -->
+<section style="padding: 3rem 6vw; background: white;">
+  <p style="text-align:center; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.15em; color:#7CB518; margin-bottom:0.5rem;">
+    Transparent Pricing · Harga Transparan
+  </p>
+  <h2 style="text-align:center; font-size:2rem; font-weight:800; color:#1a2e1a; margin-bottom:0.5rem;">
+    Starting Prices · Mulai Dari
+  </h2>
+  <p style="text-align:center; color:#888; font-size:0.9rem; margin-bottom:2rem;">
+    Per person · Per orang · Equipment & guide included · Peralatan & pemandu termasuk
+  </p>
+
+  <div class="price-grid">
+    <div class="price-item highlight">
+      <h4>🏍️ ATV Off-Road</h4>
+      <div class="big-price">350rb</div>
+      <div class="sub">Rp 350.000/pax</div>
+      <div class="sub">Batulayang Trail · 5.5km</div>
+    </div>
+    <div class="price-item">
+      <h4>🚣 Rafting</h4>
+      <div class="big-price">175rb</div>
+      <div class="sub">Rp 175.000/pax</div>
+      <div class="sub">Grade II–III Rapids</div>
+    </div>
+    <div class="price-item">
+      <h4>🚙 Jeep Offroad</h4>
+      <div class="big-price">325rb</div>
+      <div class="sub">Rp 325.000/pax</div>
+      <div class="sub">Wet & Dry Track</div>
+    </div>
+    <div class="price-item">
+      <h4>🎯 Paintball</h4>
+      <div class="big-price">175rb</div>
+      <div class="sub">Rp 175.000/pax</div>
+      <div class="sub">Full arena & ammo</div>
+    </div>
+    <div class="price-item" style="border-top-color:#1a2e1a;">
+      <h4>🤝 Corporate</h4>
+      <div class="big-price" style="font-size:1.1rem; color:#1a2e1a;">Custom</div>
+      <div class="sub">Sesuai kebutuhan</div>
+      <div class="sub">Min. 20 pax · Full EO</div>
+    </div>
+  </div>
+
+  <p style="text-align:center; font-size:0.85rem; color:#888; margin-top:1rem;">
+    💬 Prices may vary by group size & package combination · 
+    <a href="https://wa.me/6287874010019?text=Halo,%20saya%20mau%20tanya%20harga%20aktivitas%20di%20Hanya%20Adventure" 
+       style="color:#7CB518; font-weight:700;">
+      WhatsApp for exact quote →
+    </a>
+  </p>
+</section>
+
+
+<!-- ============================================================
+     BAGIAN 3: SEO TEXT — Taruh sebelum </footer>
+     Ini SANGAT penting untuk Google crawling kata kunci
+     ============================================================ -->
+<section style="padding: 4rem 6vw; background: #f5f0eb;">
+  <div style="max-width: 860px; margin: 0 auto;">
+
+    <h2 style="font-size:1.3rem; font-weight:800; color:#1a2e1a; margin: 0 0 1rem; text-transform:uppercase;">
+      ATV Puncak Bogor — Harga Mulai Rp 350.000
+    </h2>
+    <p style="color:#555; line-height:1.9; margin-bottom:1.5rem; font-size:0.95rem;">
+      Hanya Adventure menawarkan pengalaman ATV offroad terbaik di Puncak Bogor dengan harga mulai Rp 350.000 per orang. 
+      Jalur ATV kami sepanjang 5,5 km melintasi Desa Batulayang — melewati jalur berlumpur, perkebunan warga, 
+      dan sawah dengan pemandangan pegunungan Puncak yang spektakuler. Cocok untuk pemula hingga rider berpengalaman. 
+      Helm dan perlengkapan keselamatan sudah termasuk. Dipandu oleh instruktur bersertifikat.
+    </p>
+
+    <h2 style="font-size:1.3rem; font-weight:800; color:#1a2e1a; margin: 0 0 1rem; text-transform:uppercase;">
+      Rafting Puncak Bogor — Harga Mulai Rp 175.000
+    </h2>
+    <p style="color:#555; line-height:1.9; margin-bottom:1.5rem; font-size:0.95rem;">
+      Arung jeram di kawasan Puncak Bogor bersama Hanya Adventure mulai dari Rp 175.000 per orang. 
+      Nikmati sensasi menaklukkan jeram-jeram sungai alami yang dikelilingi hutan tropis dataran tinggi Puncak. 
+      Semua perlengkapan keselamatan — pelampung, helm, dayung — sudah termasuk. 
+      Cocok untuk keluarga, komunitas, dan program gathering perusahaan. Minimal 4 peserta.
+    </p>
+
+    <h2 style="font-size:1.3rem; font-weight:800; color:#1a2e1a; margin: 0 0 1rem; text-transform:uppercase;">
+      Jeep Offroad Puncak — Harga Mulai Rp 325.000
+    </h2>
+    <p style="color:#555; line-height:1.9; margin-bottom:1.5rem; font-size:0.95rem;">
+      Paket jeep offroad Puncak Bogor mulai Rp 325.000 per orang. Kapasitas 1 jeep hingga 7 penumpang. 
+      Tersedia dua jalur: jalur kering (bebatuan) dan jalur basah (berlumpur). 
+      Cocok untuk semua usia dengan pemandangan pegunungan Puncak yang memukau.
+    </p>
+
+    <h2 style="font-size:1.3rem; font-weight:800; color:#1a2e1a; margin: 0 0 1rem; text-transform:uppercase;">
+      Paintball Puncak — Harga Mulai Rp 175.000
+    </h2>
+    <p style="color:#555; line-height:1.9; margin-bottom:1.5rem; font-size:0.95rem;">
+      Paintball di arena alam terbuka Puncak mulai Rp 175.000 per orang. 
+      Senjata, peluru, masker, dan seragam sudah termasuk. 
+      Tersedia mode permainan: capture the flag, eliminasi, dan tim vs tim. 
+      Aktivitas paling populer untuk ice breaker gathering korporat dan acara komunitas.
+    </p>
+
+    <h2 style="font-size:1.3rem; font-weight:800; color:#1a2e1a; margin: 0 0 1rem; text-transform:uppercase;">
+      Best Adventure near Jakarta — Things to Do in Puncak Bogor
+    </h2>
+    <p style="color:#555; line-height:1.9; margin-bottom:1.5rem; font-size:0.95rem;">
+      Looking for the best adventure activities near Jakarta? Hanya Adventure in Puncak Bogor offers 
+      ATV off-road, white water rafting, jeep safari, paintball, and corporate team building — 
+      all just 60–90 minutes from Jakarta via Tol Jagorawi. 
+      Whether you're planning a family day trip, corporate gathering, or group adventure, 
+      we have the perfect package for you. English-speaking staff available for international guests.
+    </p>
+
+    <h2 style="font-size:1.3rem; font-weight:800; color:#1a2e1a; margin: 0 0 1rem; text-transform:uppercase;">
+      Corporate Outbound & Team Building Puncak Bogor
+    </h2>
+    <p style="color:#555; line-height:1.9; margin-bottom:1.5rem; font-size:0.95rem;">
+      Hanya Adventure adalah provider outbound korporat terpercaya di Puncak Bogor sejak 2012. 
+      Program team building kami telah dipercaya oleh lebih dari 500 perusahaan — 
+      dari BUMN, instansi pemerintah, hingga perusahaan multinasional. 
+      Paket corporate gathering tersedia dengan fasilitator bersertifikat, 
+      katering, dokumentasi foto/video, dan opsi penginapan di resort Puncak.
+    </p>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     BAGIAN 4: PERFORMANCE & GROWTH BOOSTERS
+     Tambahkan di dalam <head>
+     ============================================================ -->
+
+<!-- Sitemap hint untuk Google -->
+<link rel="sitemap" type="application/xml" href="/hanya-adventure/sitemap.xml">
+
+<!-- Canonical yang lebih kuat -->
+<link rel="canonical" href="https://desawisatacidadap.github.io/hanya-adventure/">
+
+<!-- Hreflang untuk bilingual -->
+<link rel="alternate" hreflang="id" href="https://desawisatacidadap.github.io/hanya-adventure/">
+<link rel="alternate" hreflang="en" href="https://desawisatacidadap.github.io/hanya-adventure/">
+<link rel="alternate" hreflang="x-default" href="https://desawisatacidadap.github.io/hanya-adventure/">
+
+
+<!-- ============================================================
+     BAGIAN 5: SITEMAP.XML — Buat file baru: sitemap.xml
+     Taruh di folder: /hanya-adventure/sitemap.xml
+     ============================================================ -->
+<!--
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://desawisatacidadap.github.io/hanya-adventure/</loc>
+    <lastmod>2025-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://desawisatacidadap.github.io/hanya-adventure/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://desawisatacidadap.github.io/hanya-adventure/"/>
+  </url>
+</urlset>
+-->
+
+
+<!-- ============================================================
+     BAGIAN 6: ROBOTS.TXT — Buat file baru: robots.txt
+     Taruh di root: /hanya-adventure/robots.txt
+     ============================================================ -->
+<!--
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://desawisatacidadap.github.io/hanya-adventure/sitemap.xml
+-->
+
+
+<!-- ============================================================
+     PANDUAN LENGKAP PENEMPATAN
+     ============================================================
+
+URUTAN PENAMBAHAN DI index.html:
+
+1. BAGIAN 1 (Schema + meta geo) → taruh di dalam <head>
+2. BAGIAN 2 CSS (.price-tag dll) → taruh di dalam <style>
+3. BAGIAN 2 HTML (price-grid) → taruh setelah section hero
+   atau sebelum section packages
+4. BAGIAN 3 (SEO text) → taruh sebelum <footer>
+5. BAGIAN 4 (link tags) → taruh di dalam <head>
+
+FILE BARU YANG PERLU DIBUAT:
+6. sitemap.xml → isi dari BAGIAN 5
+7. robots.txt → isi dari BAGIAN 6
+
+SETELAH UPLOAD KE GITHUB:
+8. Buka Google Search Console
+9. Submit sitemap baru:
+   https://desawisatacidadap.github.io/hanya-adventure/sitemap.xml
+10. Request indexing manual untuk halaman utama
+
+============================================================ -->

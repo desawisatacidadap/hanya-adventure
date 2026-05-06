@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://desawisatacidadap.github.io/hanya-adventure/</loc>
+    <lastmod>2025-05-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="id" href="https://desawisatacidadap.github.io/hanya-adventure/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://desawisatacidadap.github.io/hanya-adventure/"/>
+    <image:image>
+      <image:loc>https://kalangadventure.com/wp-content/uploads/2025/02/WhatsApp-Image-2025-01-27-at-9.21.22-AM.jpeg</image:loc>
+      <image:title>ATV Off-Road Puncak Bogor — Hanya Adventure</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://kalangadventure.com/wp-content/uploads/2024/08/DNS00587-scaled.jpg</image:loc>
+      <image:title>Team Building Outbound Puncak Bogor — Hanya Adventure</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://kalangadventure.com/wp-content/uploads/2024/07/IMG_9936-scaled.jpg</image:loc>
+      <image:title>Rafting Arung Jeram Puncak Bogor — Hanya Adventure</image:title>
+    </image:image>
+  </url>
+</urlset>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel | Hanya Adventure</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;800&family=Barlow+Condensed:wght@600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--forest:#1a2e1a;--lime:#7CB518;--gold:#F4A000;--brown:#8B4513;--cream:#FFF8F0;--light:#f5f0eb;--white:#fff;--dark:#111;--text:#444;--muted:#888}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+a{text-decoration:none}
+img{max-width:100%;display:block}
+
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:1001;background:#000;display:flex;justify-content:flex-end;align-items:center;padding:0 5vw;gap:0.5rem;height:28px}
+.lang-btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.15rem 0.65rem;border-radius:2px;cursor:pointer;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.45);background:transparent;transition:all 0.2s}
+.lang-btn.active{background:var(--lime);color:#fff;border-color:var(--lime)}
+.lang-btn:hover:not(.active){color:#fff;border-color:rgba(255,255,255,0.5)}
+
+nav{position:fixed;top:28px;left:0;right:0;z-index:999;background:rgba(26,46,26,0.97);backdrop-filter:blur(10px);padding:0 5vw;display:flex;align-items:center;justify-content:space-between;height:56px;border-bottom:1px solid rgba(124,181,24,0.2)}
+.nav-logo{display:flex;align-items:center;gap:0.6rem}
+.nav-logo img{height:34px;width:auto;object-fit:contain}
+.nav-brand{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:#fff;letter-spacing:0.05em}
+.nav-brand span{color:var(--lime)}
+.nav-links{display:flex;align-items:center;gap:0.9rem;list-style:none}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);transition:color 0.2s}
+.nav-links a:hover{color:var(--lime)}
+.nav-cta{background:var(--lime)!important;color:#fff!important;padding:0.38rem 0.9rem!important;border-radius:2px}
+.nav-cta:hover{background:var(--gold)!important}
+@media(max-width:768px){.nav-links{display:none}.nav-logo img{height:28px}.nav-brand{font-size:1.1rem}}
+
+.hero{min-height:100vh;padding-top:84px;background:linear-gradient(160deg,rgba(26,46,26,0.85) 0%,rgba(107,66,38,0.65) 100%),url('atv.jpg') center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;padding-left:6vw;padding-right:6vw;padding-bottom:3rem;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,var(--cream),transparent);pointer-events:none}
+.hero-badge{display:inline-block;background:var(--gold);color:var(--dark);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.67rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.8rem;border-radius:2px;margin-bottom:1rem}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,9vw,7rem);color:#fff;line-height:0.92;letter-spacing:0.02em;margin-bottom:1rem}
+.hero h1 em{color:var(--lime);font-style:normal}
+.hero-sub{font-family:'Barlow Condensed',sans-serif;font-size:clamp(0.8rem,1.6vw,1rem);color:rgba(255,255,255,0.82);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:1.6rem;max-width:480px;line-height:1.75}
+.hero-btns{display:flex;gap:0.7rem;flex-wrap:wrap;margin-bottom:2rem;position:relative;z-index:2}
+.btn-main{background:var(--lime);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.82rem 1.8rem;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 100%,9px 100%);transition:background 0.3s;display:inline-block}
+.btn-main:hover{background:var(--gold)}
+.btn-ghost{background:transparent;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.82rem 1.8rem;border:2px solid rgba(255,255,255,0.4);transition:border-color 0.3s,color 0.3s;display:inline-block}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.hero-stats{display:flex;flex-wrap:wrap;gap:1.5rem;position:relative;z-index:2}
+.hs{display:flex;flex-direction:column;min-width:60px}
+.hs h3{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--gold);line-height:1}
+.hs p{font-size:0.67rem;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.07em;margin-top:0.1rem;line-height:1.3}
+@media(max-width:480px){.hs h3{font-size:1.75rem}.hero-stats{gap:1rem}}
+
+.loc-strip{background:var(--forest);padding:0.6rem 6vw;display:flex;flex-wrap:wrap;gap:0.8rem;justify-content:center}
+.loc-strip span{font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.65)}
+.loc-strip span strong{color:var(--lime)}
+
+.section{padding:3.5rem 6vw}
+.sl{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.67rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--lime);margin-bottom:0.28rem}
+.st{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.7rem,4vw,3rem);color:var(--forest);line-height:0.95;margin-bottom:0.4rem}
+.st span{color:var(--lime)}
+.ss{font-size:0.85rem;color:var(--muted);line-height:1.7;margin-bottom:1.6rem}
+
+/* PRICE */
+.price-section{background:var(--white);text-align:center}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;max-width:900px;margin:0 auto 1.2rem}
+.pc{background:var(--light);border-radius:8px;padding:1.1rem 0.65rem;border-top:4px solid var(--lime);transition:transform 0.3s,box-shadow 0.3s}
+.pc:hover{transform:translateY(-4px);box-shadow:0 10px 25px rgba(0,0,0,0.1)}
+.pc.hot{border-top-color:var(--gold)}
+.pc.glamp{border-top-color:var(--brown)}
+.pc.corp{border-top-color:var(--forest)}
+.pc-icon{font-size:1.6rem;margin-bottom:0.3rem}
+.pc h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--forest);margin-bottom:0.5rem}
+.pb{font-family:'Bebas Neue',sans-serif;font-size:1.75rem;color:var(--forest);line-height:1}
+.pc.hot .pb{color:var(--gold)}
+.pc.glamp .pb{color:var(--brown);font-size:1.2rem}
+.pc.corp .pb{color:var(--forest);font-size:1.2rem}
+.pu{font-size:0.6rem;color:var(--muted);margin-top:0.1rem}
+.price-note{font-size:0.78rem;color:var(--muted);line-height:1.7}
+.price-note a{color:var(--lime);font-weight:700}
+
+/* ACTIVITIES */
+.act-section{background:var(--cream)}
+.act-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-top:1.8rem}
+.ac{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.07);transition:transform 0.3s,box-shadow 0.3s}
+.ac:hover{transform:translateY(-5px);box-shadow:0 12px 30px rgba(0,0,0,0.12)}
+.ai{height:190px;overflow:hidden;position:relative}
+.ai img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+.ac:hover .ai img{transform:scale(1.05)}
+.ab-badge{position:absolute;top:0.7rem;left:0.7rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.48rem;border-radius:2px;background:var(--gold);color:var(--dark)}
+.ab-badge.gb{background:var(--brown)}
+.ab-badge.cb{background:var(--forest)}
+.ab{padding:1.1rem}
+.ab h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.15rem;text-transform:uppercase;color:var(--forest);margin-bottom:0.25rem}
+.ap{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--lime);margin-bottom:0.38rem}
+.ap.gp{color:var(--brown)}
+.ab p{font-size:0.82rem;color:var(--text);line-height:1.65;margin-bottom:0.6rem}
+.am{display:flex;flex-wrap:wrap;gap:0.3rem}
+.at{background:var(--light);font-size:0.67rem;color:var(--muted);padding:0.15rem 0.45rem;border-radius:20px}
+
+/* TESTIMONIALS */
+.testi-sec{background:var(--forest)}
+.testi-sec .st{color:#fff}
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;margin-top:1.8rem}
+.tc{background:rgba(255,255,255,0.08);border-radius:8px;padding:1.4rem;border-left:3px solid var(--lime);position:relative}
+.tc-stars{color:var(--gold);font-size:1rem;margin-bottom:0.6rem;letter-spacing:2px}
+.tc-text{font-size:0.84rem;color:rgba(255,255,255,0.85);line-height:1.75;font-style:italic;margin-bottom:0.8rem}
+.tc-auth{display:flex;align-items:center;gap:0.6rem}
+.tc-avatar{width:36px;height:36px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#fff;flex-shrink:0}
+.tc-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;text-transform:uppercase;color:#fff}
+.tc-role{font-size:0.72rem;color:rgba(255,255,255,0.5)}
+.tg-note{text-align:center;margin-top:1.5rem;font-size:0.8rem;color:rgba(255,255,255,0.4)}
+.tg-note a{color:var(--lime)}
+
+/* WHY */
+.why-sec{background:var(--light)}
+.why-sec .st{color:var(--forest)}
+.wg{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.5rem;margin-top:1.8rem}
+.wc{border-left:3px solid var(--lime);padding-left:1rem;background:var(--white);padding:1.2rem 1.2rem 1.2rem 1.3rem;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.wc .wi{font-size:1.4rem;margin-bottom:0.4rem}
+.wc h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.92rem;text-transform:uppercase;color:var(--gold);margin-bottom:0.25rem}
+.wc p{font-size:0.8rem;color:var(--text);line-height:1.7}
+
+/* PACKAGES */
+.pkg-sec{background:var(--cream)}
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;margin-top:1.8rem}
+.pkg{background:var(--white);border-radius:8px;padding:1.5rem;border-top:4px solid var(--lime);transition:transform 0.3s;box-shadow:0 3px 12px rgba(0,0,0,0.06)}
+.pkg.feat{background:var(--forest);border-top-color:var(--gold)}
+.pkg.gpkg{border-top-color:var(--brown)}
+.pkg:hover{transform:translateY(-4px)}
+.pn{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;text-transform:uppercase;color:var(--forest);margin-bottom:0.15rem}
+.pkg.feat .pn{color:var(--gold)}
+.pkg.gpkg .pn{color:var(--brown)}
+.ps{font-size:0.78rem;color:var(--muted);margin-bottom:0.9rem}
+.pkg.feat .ps{color:rgba(255,255,255,0.5)}
+.pl{list-style:none;margin-bottom:1.2rem}
+.pl li{font-size:0.81rem;padding:0.33rem 0;border-bottom:1px solid rgba(0,0,0,0.06);color:var(--text)}
+.pkg.feat .pl li{border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.82)}
+.pl li::before{content:"\2713 ";color:var(--lime);font-weight:700}
+.pkg.gpkg .pl li::before{color:var(--brown)}
+.pbtn{display:block;text-align:center;background:var(--lime);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.78rem;border-radius:4px;transition:background 0.3s}
+.pbtn:hover{background:var(--gold)}
+.pkg.gpkg .pbtn{background:var(--brown)}
+.pkg.gpkg .pbtn:hover{background:var(--gold)}
+
+/* GALLERY */
+.gal-sec{background:var(--white)}
+.gg{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-top:1.6rem}
+.gi{overflow:hidden;border-radius:5px}
+.gi:first-child{grid-column:span 2;grid-row:span 2;min-height:280px}
+.gi:not(:first-child){min-height:130px}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+.gi:hover img{transform:scale(1.06)}
+@media(max-width:560px){.gg{grid-template-columns:1fr 1fr}.gi:first-child{grid-column:span 2;grid-row:span 1;min-height:170px}}
+.glamp-hi{margin-top:1.2rem;border-radius:8px;overflow:hidden;position:relative;height:240px;box-shadow:0 8px 28px rgba(0,0,0,0.15)}
+.glamp-hi img{width:100%;height:100%;object-fit:cover}
+.glamp-ov{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.72),transparent);padding:1.2rem 1.4rem;color:#fff}
+.glamp-ov h4{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold);line-height:1;margin-bottom:0.25rem}
+.glamp-ov p{font-size:0.82rem;color:rgba(255,255,255,0.85);line-height:1.6}
+
+/* FAQ */
+.faq-sec{background:var(--light)}
+.faq-list{max-width:700px;margin:1.6rem auto 0}
+.fi{background:var(--white);border-radius:6px;margin-bottom:0.5rem;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.fq{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 1.1rem;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.87rem;text-transform:uppercase;letter-spacing:0.03em;color:var(--forest);user-select:none}
+.fq::after{content:"+";font-size:1.1rem;color:var(--lime);transition:transform 0.3s;flex-shrink:0;margin-left:0.7rem;font-family:monospace}
+.fi.open .fq::after{transform:rotate(45deg)}
+.fa{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;font-size:0.84rem;color:var(--text);line-height:1.75;padding:0 1.1rem}
+.fi.open .fa{max-height:280px;padding:0 1.1rem 0.9rem}
+
+/* MAP */
+.map-sec{background:var(--forest)}
+.map-sec .st{color:#fff}
+.map-lay{display:grid;grid-template-columns:1fr 1.6fr;gap:1.4rem;align-items:start;margin-top:1.8rem}
+@media(max-width:768px){.map-lay{grid-template-columns:1fr}.mib{order:-1}}
+.ic{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-left:3px solid var(--lime);border-radius:6px;padding:0.85rem 1rem;margin-bottom:0.7rem}
+.ic h4{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:0.25rem;font-weight:700}
+.ic p{font-size:0.81rem;color:rgba(255,255,255,0.8);line-height:1.7}
+.ic a{color:var(--lime);font-weight:600}
+.ic a:hover{color:var(--gold)}
+.rt{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.38rem}
+.rtg{background:rgba(124,181,24,0.15);border:1px solid rgba(124,181,24,0.3);color:var(--lime);font-size:0.67rem;padding:0.17rem 0.5rem;border-radius:20px;font-weight:600}
+.mib{border-radius:10px;overflow:hidden;box-shadow:0 20px 55px rgba(0,0,0,0.5)}
+.mib iframe{width:100%;height:370px;border:none;display:block}
+.oml{display:flex;align-items:center;justify-content:center;gap:0.4rem;background:var(--lime);color:#fff;padding:0.82rem;font-weight:700;font-size:0.8rem;letter-spacing:0.05em;text-transform:uppercase;transition:background 0.3s}
+.oml:hover{background:var(--gold)}
+
+/* SEO TEXT */
+.seo-sec{background:var(--light);padding:2.8rem 6vw}
+.seo-in{max-width:800px;margin:0 auto}
+.seo-in h2{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.95rem;text-transform:uppercase;color:var(--forest);margin:1.4rem 0 0.4rem;letter-spacing:0.04em}
+.seo-in h2:first-child{margin-top:0}
+.seo-in p{font-size:0.85rem;color:#555;line-height:1.85}
+
+/* FOOTER */
+footer{background:var(--dark);padding:2.5rem 6vw 1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:1.6rem}
+.fl img{height:38px;width:auto;margin-bottom:0.55rem;filter:brightness(0) invert(1);opacity:0.8}
+.fd{font-size:0.76rem;color:rgba(255,255,255,0.4);line-height:1.7}
+footer h5{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.69rem;text-transform:uppercase;letter-spacing:0.12em;color:#fff;margin-bottom:0.65rem}
+footer ul{list-style:none}
+footer ul li{margin-bottom:0.32rem}
+footer ul li a{font-size:0.77rem;color:rgba(255,255,255,0.4);transition:color 0.2s}
+footer ul li a:hover{color:var(--lime)}
+.fb{background:#000;text-align:center;padding:0.85rem 6vw;font-size:0.72rem;color:rgba(255,255,255,0.25)}
+
+/* CTA */
+.cta-ban{background:var(--lime);padding:2.8rem 6vw;text-align:center}
+.cta-ban h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4.2vw,3rem);color:#fff;line-height:0.95;margin-bottom:1.2rem}
+.cta-bs{display:flex;gap:0.7rem;justify-content:center;flex-wrap:wrap}
+.cb-w{background:#fff;color:var(--forest);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.07em;text-transform:uppercase;padding:0.82rem 1.7rem;border-radius:3px;transition:background 0.3s}
+.cb-w:hover{background:var(--gold);color:#fff}
+.cb-o{background:transparent;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:0.07em;text-transform:uppercase;padding:0.82rem 1.7rem;border:2px solid rgba(255,255,255,0.6);border-radius:3px}
+
+/* WA */
+.wa-f{position:fixed;bottom:18px;right:18px;background:#25D366;color:#fff;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;z-index:9999;box-shadow:0 4px 16px rgba(37,211,102,0.5);transition:transform 0.3s;animation:wap 2.5s infinite}
+.wa-f:hover{transform:scale(1.1)}
+@keyframes wap{0%,100%{box-shadow:0 4px 16px rgba(37,211,102,0.4)}50%{box-shadow:0 4px 35px rgba(37,211,102,0.85)}}
+
+.lang-id .en{display:none}
+.lang-en .id{display:none}
+@media(max-width:768px){.hero{padding:84px 1.3rem 2.5rem}.section{padding:2.8rem 1.3rem}}
+</style><style>
+body{background:var(--light)}
+.adm-wrap{max-width:900px;margin:0 auto;padding:1.5rem 1.2rem}
+.adm-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.8rem}
+.adm-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--forest)}
+.adm-logout{background:transparent;border:2px solid var(--forest);color:var(--forest);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.8rem;text-transform:uppercase;padding:0.5rem 1rem;border-radius:5px;cursor:pointer}
+.adm-tabs{display:flex;gap:0.5rem;margin-bottom:1.2rem;border-bottom:2px solid #e5ddd0}
+.adm-tab{padding:0.7rem 1.2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent}
+.adm-tab.active{color:var(--forest);border-bottom-color:var(--lime)}
+.adm-card{background:var(--white);border-radius:8px;padding:1.2rem;margin-bottom:0.9rem;box-shadow:0 2px 10px rgba(0,0,0,0.06)}
+.adm-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:0.8rem;margin-bottom:0.6rem}
+.adm-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;color:var(--forest)}
+.adm-date{font-size:0.72rem;color:var(--muted)}
+.adm-row{font-size:0.85rem;color:var(--text);margin-bottom:0.3rem}
+.adm-row strong{color:var(--dark)}
+.adm-badge{display:inline-block;font-size:0.68rem;font-weight:700;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:20px;letter-spacing:0.03em}
+.badge-baru{background:#fff3cd;color:#856404}
+.badge-dihubungi{background:#cce5ff;color:#004085}
+.badge-confirmed{background:#d4edda;color:#155724}
+.badge-selesai{background:#e2e3e5;color:#383d41}
+.badge-batal{background:#f8d7da;color:#721c24}
+.adm-select{margin-top:0.6rem;padding:0.4rem 0.6rem;border:1px solid #ddd;border-radius:5px;font-family:'Barlow',sans-serif;font-size:0.82rem}
+.adm-stars{color:var(--gold);font-size:0.9rem}
+.adm-btn-sm{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.72rem;text-transform:uppercase;padding:0.35rem 0.8rem;border-radius:5px;border:none;cursor:pointer;margin-right:0.4rem;margin-top:0.5rem}
+.btn-approve{background:var(--lime);color:#fff}
+.btn-delete{background:#e07a7a;color:#fff}
+.login-box{max-width:360px;margin:15vh auto 0;background:var(--white);padding:2rem;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.1)}
+.login-box h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--forest);text-align:center;margin-bottom:1.2rem}
+.login-box input{width:100%;padding:0.75rem;margin-bottom:0.8rem;border:2px solid #e5ddd0;border-radius:6px;font-size:0.9rem}
+.login-box button{width:100%;background:var(--lime);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;padding:0.8rem;border:none;border-radius:6px;cursor:pointer}
+.login-err{color:#a83232;font-size:0.82rem;text-align:center;margin-top:0.6rem;display:none}
+.adm-empty{text-align:center;padding:2rem;color:var(--muted);font-size:0.88rem}
+#adminApp{display:none}
+.bk-field-adm{margin-bottom:1rem}
+.adm-label{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--forest);margin-bottom:0.35rem}
+.adm-input{width:100%;padding:0.65rem 0.8rem;border:2px solid #e5ddd0;border-radius:6px;font-family:'Barlow',sans-serif;font-size:0.88rem;color:var(--dark)}
+.adm-input:focus{outline:none;border-color:var(--lime)}
+</style>
+</head>
+<body class="lang-id">
+
+<!-- LOGIN -->
+<div id="loginScreen" class="login-box">
+  <h2>&#128274; Admin Login</h2>
+  <input type="email" id="loginEmail" placeholder="Email">
+  <input type="password" id="loginPassword" placeholder="Password">
+  <button onclick="doLogin()">Masuk</button>
+  <p class="login-err" id="loginErr">Email atau password salah.</p>
+</div>
+
+<!-- DASHBOARD -->
+<div id="adminApp">
+  <div class="adm-wrap">
+    <div class="adm-header">
+      <div class="adm-title">Admin Panel</div>
+      <button class="adm-logout" onclick="doLogout()">Keluar</button>
+    </div>
+
+    <div class="adm-tabs">
+      <div class="adm-tab active" data-tab="bookings" onclick="switchTab('bookings')">Booking</div>
+      <div class="adm-tab" data-tab="testimonials" onclick="switchTab('testimonials')">Testimoni</div>
+      <div class="adm-tab" data-tab="articles" onclick="switchTab('articles')">Artikel</div>
+    </div>
+
+    <div id="tab-bookings">
+      <div id="bookingsList"><div class="adm-empty">Memuat data...</div></div>
+    </div>
+
+    <div id="tab-testimonials" style="display:none">
+      <div id="testimonialsList"><div class="adm-empty">Memuat data...</div></div>
+    </div>
+
+    <div id="tab-articles" style="display:none">
+      <div class="adm-card" style="margin-bottom:1.3rem">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;color:var(--forest);margin-bottom:1rem" id="articleFormTitle">Tulis Artikel Baru</div>
+        <input type="hidden" id="artId">
+        <div class="bk-field-adm">
+          <label class="adm-label">Judul Artikel *</label>
+          <input type="text" id="artTitle" class="adm-input" placeholder="Contoh: 5 Tips Persiapan Sebelum ATV di Puncak">
+        </div>
+        <div class="bk-field-adm">
+          <label class="adm-label">Foto Sampul</label>
+          <input type="hidden" id="artCover">
+          <input type="file" id="artCoverFile" accept="image/*" class="adm-input" onchange="uploadCoverImage(this)" style="padding:0.5rem">
+          <div id="uploadStatus" style="font-size:0.78rem;color:var(--muted);margin-top:0.4rem"></div>
+          <img id="coverPreview" style="display:none;max-width:200px;border-radius:6px;margin-top:0.6rem">
+        </div>
+        <div class="bk-field-adm">
+          <label class="adm-label">Ringkasan Singkat (muncul di daftar artikel)</label>
+          <input type="text" id="artExcerpt" class="adm-input" placeholder="1-2 kalimat ringkasan">
+        </div>
+        <div class="bk-field-adm">
+          <label class="adm-label">Isi Artikel * (tiap baris baru = paragraf baru)</label>
+          <textarea id="artContent" class="adm-input" style="min-height:180px" placeholder="Tulis isi artikel di sini..."></textarea>
+        </div>
+        <button class="adm-btn-sm btn-approve" style="padding:0.6rem 1.3rem;font-size:0.8rem" onclick="saveArticle(false)">Simpan sebagai Draft</button>
+        <button class="adm-btn-sm btn-approve" style="padding:0.6rem 1.3rem;font-size:0.8rem;background:var(--gold)" onclick="saveArticle(true)">Simpan &amp; Publikasikan</button>
+        <button class="adm-btn-sm" style="padding:0.6rem 1.3rem;font-size:0.8rem;background:#ccc;display:none" id="cancelEditBtn" onclick="resetArticleForm()">Batal Edit</button>
+      </div>
+      <div id="articlesAdminList"><div class="adm-empty">Memuat artikel...</div></div>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script>
+// ===== LOGIN / LOGOUT =====
+async function doLogin(){
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginErr');
+  errEl.style.display = 'none';
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+  if (error) {
+    errEl.textContent = 'Login gagal: ' + error.message;
+    errEl.style.display = 'block';
+    return;
+  }
+  showDashboard();
+}
+
+async function doLogout(){
+  await supabaseClient.auth.signOut();
+  document.getElementById('adminApp').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'block';
+}
+
+async function checkSession(){
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if (session) showDashboard();
+}
+
+function showDashboard(){
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminApp').style.display = 'block';
+  loadBookings();
+  loadTestimonials();
+  loadArticlesAdmin();
+}
+
+// ===== TABS =====
+function switchTab(tab){
+  document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.adm-tab[data-tab="${tab}"]`).classList.add('active');
+  document.getElementById('tab-bookings').style.display = tab === 'bookings' ? 'block' : 'none';
+  document.getElementById('tab-testimonials').style.display = tab === 'testimonials' ? 'block' : 'none';
+  document.getElementById('tab-articles').style.display = tab === 'articles' ? 'block' : 'none';
+}
+
+// ===== BOOKINGS =====
+async function loadBookings(){
+  const el = document.getElementById('bookingsList');
+  const { data, error } = await supabaseClient.from('bookings').select('*').order('created_at', { ascending: false });
+
+  if (error) { el.innerHTML = `<div class="adm-empty">Gagal memuat: ${error.message}</div>`; return; }
+  if (!data.length) { el.innerHTML = '<div class="adm-empty">Belum ada booking masuk.</div>'; return; }
+
+  el.innerHTML = data.map(b => `
+    <div class="adm-card">
+      <div class="adm-card-top">
+        <div>
+          <div class="adm-name">${escapeHtml(b.nama)}</div>
+          <div class="adm-date">${formatDate(b.created_at)}</div>
+        </div>
+        <span class="adm-badge badge-${b.status}">${b.status}</span>
+      </div>
+      <div class="adm-row">&#128172; <strong>${escapeHtml(b.whatsapp)}</strong> &middot; <a href="https://wa.me/62${b.whatsapp.replace(/^0/,'')}" target="_blank" style="color:var(--lime)">Chat WA &rarr;</a></div>
+      <div class="adm-row">&#127942; Aktivitas: <strong>${escapeHtml(b.aktivitas)}</strong></div>
+      ${b.jumlah_peserta ? `<div class="adm-row">&#128101; Peserta: <strong>${b.jumlah_peserta} orang</strong></div>` : ''}
+      ${b.tanggal_rencana ? `<div class="adm-row">&#128197; Rencana: <strong>${b.tanggal_rencana}</strong></div>` : ''}
+      ${b.pesan ? `<div class="adm-row">&#128172; "${escapeHtml(b.pesan)}"</div>` : ''}
+      <select class="adm-select" onchange="updateBookingStatus('${b.id}', this.value)">
+        <option value="baru" ${b.status==='baru'?'selected':''}>Baru</option>
+        <option value="dihubungi" ${b.status==='dihubungi'?'selected':''}>Sudah Dihubungi</option>
+        <option value="confirmed" ${b.status==='confirmed'?'selected':''}>Confirmed</option>
+        <option value="selesai" ${b.status==='selesai'?'selected':''}>Selesai</option>
+        <option value="batal" ${b.status==='batal'?'selected':''}>Batal</option>
+      </select>
+    </div>
+  `).join('');
+}
+
+async function updateBookingStatus(id, status){
+  await supabaseClient.from('bookings').update({ status }).eq('id', id);
+  loadBookings();
+}
+
+// ===== TESTIMONIALS =====
+async function loadTestimonials(){
+  const el = document.getElementById('testimonialsList');
+  const { data, error } = await supabaseClient.from('testimonials').select('*').order('created_at', { ascending: false });
+
+  if (error) { el.innerHTML = `<div class="adm-empty">Gagal memuat: ${error.message}</div>`; return; }
+  if (!data.length) { el.innerHTML = '<div class="adm-empty">Belum ada testimoni masuk.</div>'; return; }
+
+  el.innerHTML = data.map(t => `
+    <div class="adm-card">
+      <div class="adm-card-top">
+        <div>
+          <div class="adm-name">${escapeHtml(t.nama)}</div>
+          <div class="adm-stars">${'&#9733;'.repeat(t.rating)}${'&#9734;'.repeat(5-t.rating)}</div>
+        </div>
+        <span class="adm-badge ${t.approved ? 'badge-confirmed' : 'badge-baru'}">${t.approved ? 'Tampil' : 'Menunggu'}</span>
+      </div>
+      ${t.aktivitas ? `<div class="adm-row">&#127942; ${escapeHtml(t.aktivitas)}</div>` : ''}
+      <div class="adm-row">"${escapeHtml(t.pesan)}"</div>
+      <div>
+        ${!t.approved ? `<button class="adm-btn-sm btn-approve" onclick="approveTestimonial('${t.id}')">&#10003; Tampilkan</button>` : ''}
+        <button class="adm-btn-sm btn-delete" onclick="deleteTestimonial('${t.id}')">&#128465; Hapus</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function approveTestimonial(id){
+  await supabaseClient.from('testimonials').update({ approved: true }).eq('id', id);
+  loadTestimonials();
+}
+
+async function deleteTestimonial(id){
+  if (!confirm('Yakin hapus testimoni ini?')) return;
+  await supabaseClient.from('testimonials').delete().eq('id', id);
+  loadTestimonials();
+}
+
+// ===== ARTICLES =====
+function slugify(text){
+  return text.toLowerCase().trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
+async function loadArticlesAdmin(){
+  const el = document.getElementById('articlesAdminList');
+  const { data, error } = await supabaseClient.from('articles').select('*').order('created_at', { ascending: false });
+
+  if (error) { el.innerHTML = `<div class="adm-empty">Gagal memuat: ${error.message}</div>`; return; }
+  if (!data.length) { el.innerHTML = '<div class="adm-empty">Belum ada artikel. Mulai tulis di atas!</div>'; return; }
+
+  el.innerHTML = data.map(a => `
+    <div class="adm-card">
+      <div class="adm-card-top">
+        <div>
+          <div class="adm-name">${escapeHtml(a.title)}</div>
+          <div class="adm-date">${formatDate(a.created_at)} &middot; /artikel-detail.html?slug=${escapeHtml(a.slug)}</div>
+        </div>
+        <span class="adm-badge ${a.published ? 'badge-confirmed' : 'badge-baru'}">${a.published ? 'Published' : 'Draft'}</span>
+      </div>
+      ${a.excerpt ? `<div class="adm-row">${escapeHtml(a.excerpt)}</div>` : ''}
+      <div>
+        <button class="adm-btn-sm btn-approve" onclick='editArticle(${JSON.stringify(a).replace(/'/g,"&apos;")})'>&#9998; Edit</button>
+        ${!a.published ? `<button class="adm-btn-sm btn-approve" style="background:var(--gold)" onclick="togglePublish('${a.id}', true)">&#10003; Publikasikan</button>` : `<button class="adm-btn-sm" style="background:#ccc" onclick="togglePublish('${a.id}', false)">Jadikan Draft</button>`}
+        <button class="adm-btn-sm btn-delete" onclick="deleteArticle('${a.id}')">&#128465; Hapus</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function editArticle(a){
+  document.getElementById('artId').value = a.id;
+  document.getElementById('artTitle').value = a.title;
+  document.getElementById('artCover').value = a.cover_image || '';
+  document.getElementById('artExcerpt').value = a.excerpt || '';
+  document.getElementById('artContent').value = a.content;
+  document.getElementById('articleFormTitle').textContent = 'Edit Artikel';
+  document.getElementById('cancelEditBtn').style.display = 'inline-block';
+  const previewEl = document.getElementById('coverPreview');
+  if (a.cover_image) {
+    previewEl.src = a.cover_image;
+    previewEl.style.display = 'block';
+    document.getElementById('uploadStatus').textContent = 'Foto saat ini (pilih file baru untuk mengganti)';
+    document.getElementById('uploadStatus').style.color = 'var(--muted)';
+  } else {
+    previewEl.style.display = 'none';
+    document.getElementById('uploadStatus').textContent = '';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetArticleForm(){
+  document.getElementById('artId').value = '';
+  document.getElementById('artTitle').value = '';
+  document.getElementById('artCover').value = '';
+  document.getElementById('artExcerpt').value = '';
+  document.getElementById('artContent').value = '';
+  document.getElementById('artCoverFile').value = '';
+  document.getElementById('coverPreview').style.display = 'none';
+  document.getElementById('uploadStatus').textContent = '';
+  document.getElementById('articleFormTitle').textContent = 'Tulis Artikel Baru';
+  document.getElementById('cancelEditBtn').style.display = 'none';
+}
+
+async function saveArticle(publish){
+  const id = document.getElementById('artId').value;
+  const title = document.getElementById('artTitle').value.trim();
+  const content = document.getElementById('artContent').value.trim();
+
+  if (!title || !content) { alert('Judul dan isi artikel wajib diisi.'); return; }
+
+  const payload = {
+    title,
+    cover_image: document.getElementById('artCover').value.trim() || null,
+    excerpt: document.getElementById('artExcerpt').value.trim() || null,
+    content,
+    published: publish
+  };
+
+  let error;
+  if (id) {
+    ({ error } = await supabaseClient.from('articles').update(payload).eq('id', id));
+  } else {
+    payload.slug = slugify(title) + '-' + Date.now().toString().slice(-5);
+    ({ error } = await supabaseClient.from('articles').insert([payload]));
+  }
+
+  if (error) { alert('Gagal menyimpan: ' + error.message); return; }
+
+  resetArticleForm();
+  loadArticlesAdmin();
+}
+
+async function togglePublish(id, publish){
+  await supabaseClient.from('articles').update({ published: publish }).eq('id', id);
+  loadArticlesAdmin();
+}
+
+async function deleteArticle(id){
+  if (!confirm('Yakin hapus artikel ini? Tidak bisa dibatalkan.')) return;
+  await supabaseClient.from('articles').delete().eq('id', id);
+  loadArticlesAdmin();
+}
+
+// ===== UPLOAD FOTO =====
+async function uploadCoverImage(input){
+  const file = input.files[0];
+  if (!file) return;
+
+  const statusEl = document.getElementById('uploadStatus');
+  const previewEl = document.getElementById('coverPreview');
+
+  if (file.size > 5 * 1024 * 1024) {
+    statusEl.textContent = '❌ Ukuran foto maksimal 5MB. Pilih foto lain.';
+    statusEl.style.color = '#a83232';
+    input.value = '';
+    return;
+  }
+
+  statusEl.textContent = '⏳ Mengunggah foto...';
+  statusEl.style.color = 'var(--muted)';
+
+  const fileExt = file.name.split('.').pop();
+  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2,8)}.${fileExt}`;
+
+  const { error } = await supabaseClient.storage
+    .from('article-images')
+    .upload(fileName, file);
+
+  if (error) {
+    statusEl.textContent = '❌ Gagal upload: ' + error.message;
+    statusEl.style.color = '#a83232';
+    return;
+  }
+
+  const { data: urlData } = supabaseClient.storage
+    .from('article-images')
+    .getPublicUrl(fileName);
+
+  document.getElementById('artCover').value = urlData.publicUrl;
+  previewEl.src = urlData.publicUrl;
+  previewEl.style.display = 'block';
+  statusEl.textContent = '✅ Foto berhasil diunggah!';
+  statusEl.style.color = '#3d6b1f';
+}
+
+// ===== HELPERS =====
+function escapeHtml(str){
+  if (!str) return '';
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+function formatDate(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+
+checkSession();
+</script>
+</body>
+</html>

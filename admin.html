@@ -561,8 +561,8 @@ async function uploadCoverImage(input){
   const statusEl = document.getElementById('uploadStatus');
   const previewEl = document.getElementById('coverPreview');
 
-  if (file.size > 5 * 1024 * 1024) {
-    statusEl.textContent = '❌ Ukuran foto maksimal 5MB. Pilih foto lain.';
+  if (file.size > 10 * 1024 * 1024) {
+    statusEl.textContent = '❌ Ukuran foto maksimal 10MB. Pilih foto lain atau kompres dulu.';
     statusEl.style.color = '#a83232';
     input.value = '';
     return;

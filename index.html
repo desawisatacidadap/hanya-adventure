@@ -188,7 +188,17 @@ nav{position:fixed;top:28px;left:0;right:0;z-index:999;background:rgba(26,46,26,
 .nav-links a:hover{color:var(--lime)}
 .nav-cta{background:var(--lime)!important;color:#fff!important;padding:0.38rem 0.9rem!important;border-radius:2px}
 .nav-cta:hover{background:var(--gold)!important}
-@media(max-width:768px){.nav-links{display:none}.nav-logo img{height:28px}.nav-brand{font-size:1.1rem}}
+@media(max-width:768px){
+  nav{height:auto;flex-wrap:wrap;padding:0.5rem 4vw}
+  .nav-logo{margin-bottom:0.4rem}
+  .nav-links{display:flex;flex-wrap:nowrap;overflow-x:auto;width:100%;justify-content:flex-start;gap:1rem;padding-bottom:0.3rem;-webkit-overflow-scrolling:touch}
+  .nav-links::-webkit-scrollbar{height:3px}
+  .nav-links li{flex-shrink:0}
+  .nav-links a{white-space:nowrap;font-size:0.68rem}
+  .nav-cta{padding:0.32rem 0.75rem!important}
+  .nav-logo img{height:28px}
+  .nav-brand{font-size:1.1rem}
+}
 
 .hero{min-height:100vh;padding-top:84px;background:linear-gradient(160deg,rgba(26,46,26,0.85) 0%,rgba(107,66,38,0.65) 100%),url('atv.jpg') center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;padding-left:6vw;padding-right:6vw;padding-bottom:3rem;position:relative;overflow:hidden}
 .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,var(--cream),transparent);pointer-events:none}
@@ -374,7 +384,7 @@ footer ul li a:hover{color:var(--lime)}
 
 .lang-id .en{display:none}
 .lang-en .id{display:none}
-@media(max-width:768px){.hero{padding:84px 1.3rem 2.5rem}.section{padding:2.8rem 1.3rem}}
+@media(max-width:768px){.hero{padding:130px 1.3rem 2.5rem}.section{padding:2.8rem 1.3rem}}
 </style>
 </head>
 <body class="lang-id">
@@ -397,6 +407,7 @@ footer ul li a:hover{color:var(--lime)}
     <li><a href="#packages" class="id">Paket</a><a href="#packages" class="en">Packages</a></li>
     <li><a href="#reviews" class="id">Ulasan</a><a href="#reviews" class="en">Reviews</a></li>
     <li><a href="#faq">FAQ</a></li>
+    <li><a href="artikel.html">Artikel</a></li>
     <li><a href="#location" class="id">Lokasi</a><a href="#location" class="en">Location</a></li>
     <li><a href="https://wa.me/6287874010019" class="nav-cta">&#128241; Book</a></li>
   </ul>
@@ -408,8 +419,11 @@ footer ul li a:hover{color:var(--lime)}
   <p class="hero-sub id">ATV &middot; Rafting &middot; Jeep &middot; Paintball &middot; Glamping &middot; Outbound Korporat</p>
   <p class="hero-sub en">ATV &middot; Rafting &middot; Jeep &middot; Paintball &middot; Glamping &middot; Corporate Outbound</p>
   <div class="hero-btns">
-    <a href="https://wa.me/6287874010019?text=Halo%20Hanya%20Adventure!%20Saya%20mau%20info%20paket%20wisata" class="btn-main">&#128241; <span class="id">Pesan via WhatsApp</span><span class="en">Book via WhatsApp</span></a>
-    <a href="#activities" class="btn-ghost"><span class="id">Lihat Aktivitas &#8595;</span><span class="en">See Activities &#8595;</span></a>
+    <a href="booking.html" class="btn-main">&#128197; <span class="id">Booking Online</span><span class="en">Book Online</span></a>
+    <a href="https://wa.me/6287874010019?text=Halo%20Hanya%20Adventure!%20Saya%20mau%20info%20paket%20wisata" class="btn-ghost">&#128241; <span class="id">Chat WhatsApp</span><span class="en">Chat WhatsApp</span></a>
+  </div>
+  <div style="margin-top:0.8rem;position:relative;z-index:2">
+    <a href="artikel.html" style="display:inline-flex;align-items:center;gap:0.4rem;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;border-bottom:2px solid var(--lime);padding-bottom:0.2rem"><span class="id">&#128218; Baca Artikel &amp; Tips</span><span class="en">&#128218; Read Articles &amp; Tips</span></a>
   </div>
   <div class="hero-stats">
     <div class="hs"><h3>12+</h3><p class="id">Tahun<br>Pengalaman</p><p class="en">Years<br>Experience</p></div>
@@ -752,6 +766,13 @@ footer ul li a:hover{color:var(--lime)}
     </ul>
   </div>
   <div>
+    <h5 class="id">Booking &amp; Artikel</h5><h5 class="en">Booking &amp; Articles</h5>
+    <ul>
+      <li><a href="booking.html" class="id" style="color:var(--lime);font-weight:700">&#128197; Booking Online</a><a href="booking.html" class="en" style="color:var(--lime);font-weight:700">&#128197; Book Online</a></li>
+      <li><a href="artikel.html" class="id" style="color:var(--lime);font-weight:700">&#128218; Artikel &amp; Tips</a><a href="artikel.html" class="en" style="color:var(--lime);font-weight:700">&#128218; Articles &amp; Tips</a></li>
+    </ul>
+  </div>
+  <div>
     <h5 class="id">Kontak</h5><h5 class="en">Contact</h5>
     <ul>
       <li><a href="https://wa.me/6287874010019">&#128172; +62 878-7401-0019</a></li>
@@ -759,6 +780,7 @@ footer ul li a:hover{color:var(--lime)}
       <li><a href="https://www.instagram.com/outbound_gathering_puncakbogor" target="_blank">&#128247; Instagram</a></li>
       <li><a href="https://www.tiktok.com/@kalangadventure" target="_blank">&#127925; TikTok</a></li>
       <li><a href="https://kalangadventure.com" target="_blank">&#127758; kalangadventure.com</a></li>
+      <li><a href="https://desawisatacidadap.github.io/desa-wisata-cidadap/" target="_blank">&#127955; Desa Wisata Cidadap</a></li>
       <li><a href="https://maps.app.goo.gl/2oRWgGtXGeoWJFGn9" target="_blank">&#128506; Google Maps</a></li>
     </ul>
   </div>

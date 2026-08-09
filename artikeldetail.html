@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Booking Online | Hanya Adventure Puncak Bogor</title>
-<meta name="description" content="Booking online paket wisata Hanya Adventure Puncak Bogor. Isi form, tim kami akan segera menghubungi Anda via WhatsApp.">
-<meta name="robots" content="noindex, follow">
+<title id="pageTitle">Artikel | Hanya Adventure Puncak Bogor</title>
+<meta name="description" id="pageDesc" content="Artikel dari Hanya Adventure Puncak Bogor.">
+<meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;800&family=Barlow+Condensed:wght@600;700;900&display=swap" rel="stylesheet">
@@ -43,7 +43,6 @@ nav{position:fixed;top:28px;left:0;right:0;z-index:999;background:rgba(26,46,26,
   .nav-cta{padding:0.32rem 0.75rem!important}
   .nav-logo img{height:28px}
   .nav-brand{font-size:1.1rem}
-  .hero{padding-top:110px!important}
 }
 
 .hero{min-height:100vh;padding-top:84px;background:linear-gradient(160deg,rgba(26,46,26,0.85) 0%,rgba(107,66,38,0.65) 100%),url('atv.jpg') center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;padding-left:6vw;padding-right:6vw;padding-bottom:3rem;position:relative;overflow:hidden}
@@ -232,18 +231,14 @@ footer ul li a:hover{color:var(--lime)}
 .lang-en .id{display:none}
 @media(max-width:768px){.hero{padding:84px 1.3rem 2.5rem}.section{padding:2.8rem 1.3rem}}
 </style><style>
-.booking-wrap{max-width:520px;margin:0 auto;padding:2rem 1.3rem}
-.bk-field{margin-bottom:1.1rem}
-.bk-field label{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--forest);margin-bottom:0.4rem}
-.bk-field input,.bk-field select,.bk-field textarea{width:100%;padding:0.75rem 0.9rem;border:2px solid #e5ddd0;border-radius:6px;font-family:'Barlow',sans-serif;font-size:0.92rem;color:var(--dark);background:var(--white)}
-.bk-field input:focus,.bk-field select:focus,.bk-field textarea:focus{outline:none;border-color:var(--lime)}
-.bk-field textarea{resize:vertical;min-height:90px}
-.bk-submit{width:100%;background:var(--lime);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.05em;text-transform:uppercase;padding:1rem;border:none;border-radius:6px;cursor:pointer;transition:background 0.3s}
-.bk-submit:hover{background:var(--gold)}
-.bk-submit:disabled{background:#ccc;cursor:not-allowed}
-.bk-msg{padding:1rem;border-radius:6px;margin-bottom:1.2rem;font-size:0.88rem;display:none}
-.bk-msg.success{background:#e8f5e0;color:#3d6b1f;border:1px solid #7CB518;display:block}
-.bk-msg.error{background:#fde8e8;color:#a83232;border:1px solid #e07a7a;display:block}
+.art-detail-wrap{max-width:720px;margin:0 auto;padding:2rem 1.3rem}
+.art-detail-cover{width:100%;height:280px;object-fit:cover;border-radius:10px;margin-bottom:1.5rem;background:linear-gradient(135deg,#1a2e1a,#7CB518)}
+.art-detail-date{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.6rem}
+.art-detail-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,5vw,2.8rem);color:var(--forest);line-height:1.05;margin-bottom:1.3rem}
+.art-detail-content{font-size:0.95rem;color:var(--text);line-height:1.9}
+.art-detail-content p{margin-bottom:1.1rem}
+.art-back{display:inline-flex;align-items:center;gap:0.4rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.8rem;text-transform:uppercase;color:var(--lime);margin-bottom:1.5rem}
+.art-notfound{text-align:center;padding:4rem 1rem;color:var(--muted)}
 </style>
 </head>
 <body class="lang-id">
@@ -255,66 +250,14 @@ footer ul li a:hover{color:var(--lime)}
   </div>
   <ul class="nav-links">
     <li><a href="index.html">Beranda</a></li>
-    <li><a href="index.html#activities">Aktivitas</a></li>
+    <li><a href="artikel.html">Artikel</a></li>
+    <li><a href="booking.html" class="nav-cta">&#128241; Book</a></li>
   </ul>
 </nav>
 
-<section class="hero" style="min-height:45vh;padding-top:70px">
-  <div class="hero-badge">&#128197; Booking Online</div>
-  <h1 style="font-size:clamp(2.2rem,7vw,4.5rem)">BOOKING<br><em>SEKARANG</em></h1>
-  <p class="hero-sub">Isi form di bawah, tim kami hubungi Anda via WhatsApp dalam 1 jam</p>
-</section>
-
-<section class="section" style="padding-top:1.5rem">
-  <div class="booking-wrap">
-
-    <div id="bkMsg" class="bk-msg"></div>
-
-    <form id="bookingForm">
-      <div class="bk-field">
-        <label for="nama">Nama Lengkap *</label>
-        <input type="text" id="nama" required placeholder="Nama Anda">
-      </div>
-
-      <div class="bk-field">
-        <label for="whatsapp">Nomor WhatsApp *</label>
-        <input type="tel" id="whatsapp" required placeholder="08xxxxxxxxxx">
-      </div>
-
-      <div class="bk-field">
-        <label for="aktivitas">Aktivitas yang Diminati *</label>
-        <select id="aktivitas" required>
-          <option value="">Pilih aktivitas</option>
-          <option value="ATV">ATV Hutan Batulayang</option>
-          <option value="Jeep Offroad">Jeep Offroad</option>
-          <option value="Rafting">Rafting / Arung Jeram</option>
-          <option value="Paintball">Paintball Arena</option>
-          <option value="Glamping">Glamping</option>
-          <option value="Outbound Korporat">Outbound / Team Building Korporat</option>
-          <option value="Village Tour">Wisata Desa / Village Tour</option>
-          <option value="Lainnya">Kombinasi / Belum yakin</option>
-        </select>
-      </div>
-
-      <div class="bk-field">
-        <label for="peserta">Jumlah Peserta</label>
-        <input type="number" id="peserta" min="1" placeholder="Contoh: 15">
-      </div>
-
-      <div class="bk-field">
-        <label for="tanggal">Rencana Tanggal Kunjungan</label>
-        <input type="date" id="tanggal">
-      </div>
-
-      <div class="bk-field">
-        <label for="pesan">Pesan Tambahan</label>
-        <textarea id="pesan" placeholder="Ceritakan kebutuhan Anda (opsional)"></textarea>
-      </div>
-
-      <button type="submit" class="bk-submit" id="bkSubmitBtn">Kirim Booking</button>
-    </form>
-
-    <p style="text-align:center;font-size:0.8rem;color:var(--muted);margin-top:1.2rem">Atau hubungi langsung via <a href="https://wa.me/6287874010019" style="color:var(--lime);font-weight:700">WhatsApp</a></p>
+<section class="section" style="padding-top:6rem">
+  <div class="art-detail-wrap" id="articleContent">
+    <div class="art-notfound">Memuat artikel...</div>
   </div>
 </section>
 
@@ -335,46 +278,54 @@ footer ul li a:hover{color:var(--lime)}
 
 <script src="config.js"></script>
 <script>
-document.getElementById('bookingForm').addEventListener('submit', async function(e){
-  e.preventDefault();
-  const btn = document.getElementById('bkSubmitBtn');
-  const msg = document.getElementById('bkMsg');
-  btn.disabled = true;
-  btn.textContent = 'Mengirim...';
-  msg.className = 'bk-msg';
-  msg.style.display = 'none';
+async function loadArticle(){
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('slug');
+  const el = document.getElementById('articleContent');
 
-  const data = {
-    nama: document.getElementById('nama').value.trim(),
-    whatsapp: document.getElementById('whatsapp').value.trim(),
-    aktivitas: document.getElementById('aktivitas').value,
-    jumlah_peserta: document.getElementById('peserta').value ? parseInt(document.getElementById('peserta').value) : null,
-    tanggal_rencana: document.getElementById('tanggal').value || null,
-    pesan: document.getElementById('pesan').value.trim() || null
-  };
+  if (!slug) { el.innerHTML = '<div class="art-notfound">Artikel tidak ditemukan. <br><a href="artikel.html" style="color:var(--lime)">&larr; Kembali ke daftar artikel</a></div>'; return; }
 
-  try {
-    const { error } = await supabaseClient.from('bookings').insert([data]);
-    if (error) throw error;
+  const { data, error } = await supabaseClient
+    .from('articles')
+    .select('*')
+    .eq('slug', slug)
+    .eq('published', true)
+    .single();
 
-    msg.className = 'bk-msg success';
-    msg.textContent = '✅ Booking berhasil dikirim! Tim kami akan menghubungi Anda via WhatsApp dalam 1 jam.';
-    msg.style.display = 'block';
-    document.getElementById('bookingForm').reset();
-
-    // Buka WhatsApp otomatis sebagai konfirmasi tambahan
-    const waText = encodeURIComponent(`Halo Hanya Adventure! Saya ${data.nama} baru saja booking online untuk ${data.aktivitas}${data.jumlah_peserta ? ' (' + data.jumlah_peserta + ' orang)' : ''}. Mohon info lebih lanjut ya!`);
-    setTimeout(function(){ window.open(`https://wa.me/6287874010019?text=${waText}`, '_blank'); }, 1500);
-
-  } catch (err) {
-    msg.className = 'bk-msg error';
-    msg.textContent = '❌ Gagal mengirim, coba lagi atau hubungi via WhatsApp langsung. (' + err.message + ')';
-    msg.style.display = 'block';
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Kirim Booking';
+  if (error || !data) {
+    el.innerHTML = '<div class="art-notfound">Artikel tidak ditemukan atau belum dipublikasikan. <br><a href="artikel.html" style="color:var(--lime)">&larr; Kembali ke daftar artikel</a></div>';
+    return;
   }
-});
+
+  document.title = data.title + ' | Hanya Adventure Puncak Bogor';
+  document.getElementById('pageDesc').setAttribute('content', data.excerpt || data.title);
+
+  const paragraphs = data.content.split('\n').filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join('');
+
+  el.innerHTML = `
+    <a href="artikel.html" class="art-back">&#8592; Semua Artikel</a>
+    ${data.cover_image ? `<img src="${escapeHtml(data.cover_image)}" alt="${escapeHtml(data.title)}" class="art-detail-cover">` : ''}
+    <div class="art-detail-date">${formatDate(data.created_at)}</div>
+    <h1 class="art-detail-title">${escapeHtml(data.title)}</h1>
+    <div class="art-detail-content">${paragraphs}</div>
+    <div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid #e5ddd0">
+      <a href="https://wa.me/6287874010019?text=Halo%20Hanya%20Adventure!%20Saya%20habis%20baca%20artikel%20tentang%20${encodeURIComponent(data.title)}" style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--lime);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;text-transform:uppercase;padding:0.75rem 1.5rem;border-radius:5px">&#128172; Tanya-tanya di WhatsApp</a>
+    </div>
+  `;
+}
+
+function escapeHtml(str){
+  if (!str) return '';
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+function formatDate(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' });
+}
+
+loadArticle();
 </script>
 </body>
 </html>
